@@ -59,10 +59,10 @@ const Notes = () => {
               Notes
             </h1>
           </div>
-          <div className="container mx-auto space-y-4 lg:grid lg:grid-cols-3 lg:gap-4 md:grid md:grid-cols-3 md:gap-4 px-5 mb-8">
+          <div className="container mx-auto space-y-4 lg:grid lg:grid-cols-3 lg:gap-4 md:grid md:grid-cols-3 md:gap-4 px-8 mb-8">
             {notesData.map((note) => (
               <div className="flex justify-center border-2" key={note.id}>
-                <div className="py-4">
+                <div className="py-4 px-5">
                   <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                     {note.Title}
                   </h5>
