@@ -2,6 +2,7 @@ import { React, useState, useEffect } from "react";
 import { auth, db } from "Components/Config";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { collection, addDoc } from "firebase/firestore";
+import Link from "next/link";
 
 const AddNotes = () => {
   const [title, setTitle] = useState("");
@@ -109,6 +110,15 @@ const AddNotes = () => {
               Add Notes
             </button>
           </div>
+        </div>
+        <div className="container text-center mt-12 mb-2">
+          <Link
+            href="https://jayashankar.in"
+            target="_blank"
+            className="rounded-full px-4 py-2 font-bold tracking-wide text-white bg-slate-900"
+          >
+            Talk to the dev
+          </Link>
         </div>
       </div>
     </>

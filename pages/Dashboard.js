@@ -37,11 +37,12 @@ const Dashboard = () => {
           </div>
           <div className="container text-center mx-auto mt-20 ">
             <h1 className="text-3xl font-mono tracking-widest">Dashboard</h1>
-            <p className="text-gray-500 text-md font-mono tracking-wide">
+            <p className="text-gray-500 text-md font-mono tracking-wide pb-6">
               Hey, {user.displayName}
             </p>
           </div>
-          <div className="container mx-auto text-center space-x-8 space-y-8">
+
+          <div className="container mx-auto text-center space-x-8 space-y-6">
             <button
               className="bg-blue-700 text-white font-bold font-mono tracking-wide py-2 px-4 rounded-full"
               onClick={addNotes}
@@ -55,6 +56,7 @@ const Dashboard = () => {
               Fetch Notes
             </button>
           </div>
+
           {component}
         </div>
       </>
