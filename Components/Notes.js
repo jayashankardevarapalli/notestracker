@@ -33,7 +33,7 @@ const Notes = () => {
           <div className="container mx-auto space-y-4 lg:grid lg:grid-cols-3 lg:gap-4 md:grid md:grid-cols-3 md:gap-4 px-5">
             {notesData.map((note) => (
               <div className="flex justify-center border-2">
-                <div className="block p-6 rounded-lg shadow-lg bg-white max-w-sm">
+                <div className="p-6">
                   <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                     {note.Title}
                   </h5>
