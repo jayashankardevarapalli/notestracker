@@ -28,9 +28,9 @@ const index = () => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="conatiner mx-auto ">
-        <h1 className="text-2xl tracking-widest center-heading">
-          Hello World!!
+      <div className="conatiner mx-auto">
+        <h1 className="text-4xl tracking-widest center-heading font-mono">
+          Hello There!!
         </h1>
         <button
           className="center-word bg-blue-700 text-white font-bold py-2 px-4 rounded-full tracking-widest"
