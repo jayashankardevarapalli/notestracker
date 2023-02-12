@@ -7,7 +7,7 @@ import { Notes } from "@/Components/Notes";
 import { AddNotes } from "@/Components/AddNotes";
 
 const Dashboard = () => {
-  const [component, setComponent] = useState(null);
+  const [component, setComponent] = useState(<Notes />);
   const router = useRouter();
   const [user] = useAuthState(auth);
   const signout = () => {
@@ -40,7 +40,6 @@ const Dashboard = () => {
             <p className="text-gray-500 text-md font-mono tracking-wide">
               Hey, {user.displayName}
             </p>
-            <p>{user.uid}</p>
           </div>
           <div className="container mx-auto text-center space-x-8 space-y-8">
             <button
@@ -62,8 +61,8 @@ const Dashboard = () => {
     );
   } else {
     return (
-      <div className="font-mono tracking-widest absolute top-8 left-2">
-        401 Unauthorized!!
+      <div className="font-mono tracking-widest absolute top-8 left-2 center-word">
+        Loading......
       </div>
     );
   }

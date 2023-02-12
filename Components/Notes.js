@@ -1,31 +1,53 @@
 import { React, useState, useEffect } from "react";
 import { auth, db } from "Components/Config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
+import {
+  collection,
+  deleteDoc,
+  getDocs,
+  doc,
+  orderBy,
+} from "firebase/firestore";
+import { AddNotes } from "./AddNotes";
 
 const Notes = () => {
   const [user] = useAuthState(auth);
   const [notesData, setNotesData] = useState([]);
   useEffect(() => {
     const fetchNotes = async () => {
-      const querySnapshot = await getDocs(collection(db, "Notes"));
+      const querySnapshot = await getDocs(
+        collection(db, "Notes"),
+        orderBy("Timestamp", "desc")
+      );
 
       const notes = querySnapshot.docs.map((doc) => {
         const data = doc.data();
-        return { ...data, id: doc.id };
+        const date = new Date(data.Timestamp);
+        return { ...data, id: doc.id, Timestamp: date.getTime() };
       });
       const authorization = notes.filter((note) => note.Uid === user.uid);
-      setNotesData(authorization);
+      const sortedNotes = authorization.sort(
+        (a, b) => b.Timestamp - a.Timestamp
+      );
+      setNotesData(sortedNotes);
     };
 
     fetchNotes();
-  }, []);
+  }, [user]);
 
   function deleteNote(id) {
     deleteDoc(doc(db, "Notes", id)).then(() => {
       console.log("Document successfully deleted!");
       window.location.reload();
     });
+  }
+
+  if (notesData == "") {
+    return (
+      <div className="center-word font-mono tracking-wide text-lg">
+        Hello There, Add Your Notes Now.
+      </div>
+    );
   }
 
   if (user) {
@@ -40,16 +62,16 @@ const Notes = () => {
           <div className="container mx-auto space-y-4 lg:grid lg:grid-cols-3 lg:gap-4 md:grid md:grid-cols-3 md:gap-4 px-5 mb-8">
             {notesData.map((note) => (
               <div className="flex justify-center border-2" key={note.id}>
-                <div className="p-6">
+                <div className="py-4">
                   <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                     {note.Title}
                   </h5>
                   <p className="text-start mb-6 break-words">{note.Content}</p>
-                  <p>{note.id}</p>
-                  <div className="flex justify-between">
+                  <div className="flex justify-between space-x-8">
                     <p className="text-gray-700 text-sm pt-2">
                       Updated: {note.TimeDate}
                     </p>
+
                     <button
                       className="bg-red-600 rounded-full px-4 py-2 text-white float-right"
                       onClick={() => {
@@ -60,7 +82,7 @@ const Notes = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        strokeWidth="2.0"
+                        strokeWidth={2.0}
                         stroke="currentColor"
                         className="w-4 h-4"
                       >

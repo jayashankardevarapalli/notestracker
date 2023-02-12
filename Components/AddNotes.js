@@ -45,8 +45,6 @@ const AddNotes = () => {
           const docRef = addDoc(collection(db, "Notes"), {
             Title: title,
             Content: content,
-            Date: formattedDate,
-            Time: formattedTime,
             TimeDate: formattedTime + " " + formattedDate,
             Timestamp: timestamp,
             Uid: user.uid,
