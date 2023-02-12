@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { auth, db } from "Components/Config";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, deleteDoc, getDocs, doc } from "firebase/firestore";
 
 const Notes = () => {
   const [user] = useAuthState(auth);
@@ -21,6 +21,13 @@ const Notes = () => {
     fetchNotes();
   }, []);
 
+  function deleteNote(id) {
+    deleteDoc(doc(db, "Notes", id)).then(() => {
+      console.log("Document successfully deleted!");
+      window.location.reload();
+    });
+  }
+
   if (user) {
     return (
       <>
@@ -30,19 +37,25 @@ const Notes = () => {
               Notes
             </h1>
           </div>
-          <div className="container mx-auto space-y-4 lg:grid lg:grid-cols-3 lg:gap-4 md:grid md:grid-cols-3 md:gap-4 px-5">
+          <div className="container mx-auto space-y-4 lg:grid lg:grid-cols-3 lg:gap-4 md:grid md:grid-cols-3 md:gap-4 px-5 mb-8">
             {notesData.map((note) => (
-              <div className="flex justify-center border-2">
+              <div className="flex justify-center border-2" key={note.id}>
                 <div className="p-6">
                   <h5 className="text-gray-900 text-xl leading-tight font-medium mb-2">
                     {note.Title}
                   </h5>
                   <p className="text-start mb-6 break-words">{note.Content}</p>
-                  <div className="flex justify-between space-x-4">
+                  <p>{note.id}</p>
+                  <div className="flex justify-between">
                     <p className="text-gray-700 text-sm pt-2">
                       Updated: {note.TimeDate}
                     </p>
-                    <button className="bg-red-600 rounded-full px-4 py-2 text-white float-right">
+                    <button
+                      className="bg-red-600 rounded-full px-4 py-2 text-white float-right"
+                      onClick={() => {
+                        deleteNote(note.id);
+                      }}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
